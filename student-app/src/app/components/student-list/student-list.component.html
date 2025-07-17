@@ -1,0 +1,118 @@
+<div class="container">
+  <h1>Gestión de Estudiantes</h1>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando...</p>
+  </div>
+
+  <!-- Student Form -->
+  <div class="form-section">
+    <h2>{{ isEditing ? 'Editar Estudiante' : 'Agregar Nuevo Estudiante' }}</h2>
+    <form [formGroup]="studentForm" (ngSubmit)="saveStudent()">
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input 
+          type="text" 
+          id="name" 
+          formControlName="name"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('name')"
+          placeholder="Ingrese el nombre">
+        <div *ngIf="isFieldInvalid('name')" class="invalid-feedback">
+          {{ getFieldError('name') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Edad:</label>
+        <input 
+          type="number" 
+          id="age" 
+          formControlName="age"
+          min="1" 
+          max="120"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('age')"
+          placeholder="Ingrese la edad">
+        <div *ngIf="isFieldInvalid('age')" class="invalid-feedback">
+          {{ getFieldError('age') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email"
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('email')"
+          placeholder="Ingrese el email">
+        <div *ngIf="isFieldInvalid('email')" class="invalid-feedback">
+          {{ getFieldError('email') }}
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="isLoading || studentForm.invalid">
+          {{ isEditing ? 'Actualizar' : 'Guardar' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()" *ngIf="isEditing">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-success" (click)="addStudent()" *ngIf="!isEditing">
+          Nuevo Estudiante
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Students Table -->
+  <div class="table-section">
+    <h2>Lista de Estudiantes ({{ students.length }})</h2>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Email</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students">
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.email }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="editStudent(student)">
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="deleteStudent(student.id!)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="students.length === 0">
+            <td colspan="5" class="text-center">No hay estudiantes registrados</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> 
