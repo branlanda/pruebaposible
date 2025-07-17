@@ -1,0 +1,24 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+
+# Node/Angular
+node_modules/
+dist/
+.env
+
+# IDEs y editores
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Archivos temporales
+*.log
+.DS_Store
+Thumbs.db
+
+# NO ignorar student-app ni su contenido fuente
+# Si tienes un .gitignore dentro de student-app, déjalo solo para node_modules, dist, etc. 
