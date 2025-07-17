@@ -1,0 +1,34 @@
+[object Object]
+ version": 0.2.0
+ configurations: [
+   [object Object]name:Launch Backend (StudentAPI),   type": coreclr",
+      request:launch",
+      preLaunchTask": "build",
+  program": ${workspaceFolder}/StudentAPI/bin/Debug/net9/StudentAPI.dll",
+     args": [],
+   cwd": ${workspaceFolder}/StudentAPI",
+console": "internalConsole",
+  stopAtEntry": false,
+      env: [object Object]   ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+   [object Object]name": Launch Frontend (Angular),   type:chrome",
+      request:launch",
+   url http://localhost:4200,
+  webRoot": ${workspaceFolder}/student-app/src",
+      sourceMaps": true,
+      sourceMapPathOverrides": [object Object]
+       webpack:/*": "${webRoot}/*,       /./*": "${webRoot}/*,
+      /src/*": "${webRoot}/*",
+        /*: *,
+      /./~/*": "${webRoot}/node_modules/*"
+      }
+    }
+  ],
+  compounds: [
+   [object Object]name": Launch Full Stack",
+     configurations":     Launch Backend (StudentAPI),     Launch Frontend (Angular)"
+      ]
+    }
+  ]
+} 
